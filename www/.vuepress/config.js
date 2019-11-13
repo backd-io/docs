@@ -20,6 +20,12 @@ module.exports = {
                     title: 'Quick Start',
                     collapsable: false
                 }
+            ],
+            '/installation': [
+                {
+                    title: 'Platform Installation',
+                    collapsable: false
+                }
             ]
         },
         lastUpdated: 'Last Updated',
