@@ -1,25 +1,32 @@
 module.exports = {
+    title: 'backd',
+    description: 'microservices backend for applications',
+    plugins: [
+        '@vuepress/active-header-links',
+        '@vuepress/last-updated'
+    ],
+    markdown: {
+        lineNumbers: true
+    },
     themeConfig: {
-        codeLanguages: {
-            php: 'PHP',
-            twig: 'Twig',
-            // any other code language labels you want to include in code toggles...
-        },
         nav: [
             { text: 'Home', link: '/' },
             { text: 'Documentation', link: '/docs/' },
             { text: 'External', link: 'https://google.com', target: "_blank" }
-        ],
-        sidebar: [
-            '/',
-            '/page-a',
-            ['/page-b', 'Explicit link text']
-        ],
+        ], 
+        sidebar: {
+            '/docs': [
+                {
+                    title: 'Quick Start',
+                    collapsable: false
+                }
+            ]
+        },
         lastUpdated: 'Last Updated',
         repo: 'fernandezvara/backd',
-        repoLabel: 'Contribute!',
+        // repoLabel: 'Contribute!',
         docsRepo: 'fernandezvara/backd-docs',
-        docsDir: 'docs',
+        docsDir: 'www',
         docsBranch: 'master',
         editLinks: true,
         nextLinks: true,
