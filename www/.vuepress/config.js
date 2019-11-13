@@ -11,11 +11,11 @@ module.exports = {
     themeConfig: {
         nav: [
             { text: 'Home', link: '/' },
-            { text: 'Documentation', link: '/docs/' },
+            { text: 'Documentation', link: '/quick-start/' },
             { text: 'External', link: 'https://google.com', target: "_blank" }
         ], 
         sidebar: {
-            '/docs': [
+            '/quick-start': [
                 {
                     title: 'Quick Start',
                     collapsable: false
