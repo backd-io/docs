@@ -3,7 +3,7 @@ home: true
 heroText: backd
 tagline: devops ready backend for fast app development
 actionText: Get Started →
-actionLink: /quick-start/
+actionLink: /guide/
 features:
 - title: Data and Files
   details: Store and manage your data, files, relations, schemas and validations. Subcribe to receive real-time updates when data objects change.

@@ -11,17 +11,23 @@ module.exports = {
     themeConfig: {
         nav: [
             { text: 'Home', link: '/' },
-            { text: 'Documentation', link: '/quick-start/' },
+            { text: 'Documentation', link: '/guide/' },
             { text: 'External', link: 'https://google.com', target: "_blank" }
         ], 
         sidebar: {
-            '/quick-start': [
+            '/guide/': [
                 {
-                    title: 'Quick Start',
-                    collapsable: false
+                    title: 'Documentation',
+                    collapsable: false,
+                    sidebarDepth: 2,
+                    children: [
+                        '',
+                        'quick-start',
+                        'ms_admin',
+                      ]
                 }
             ],
-            '/installation': [
+            '/installation/': [
                 {
                     title: 'Platform Installation',
                     collapsable: false
@@ -31,7 +37,7 @@ module.exports = {
         lastUpdated: 'Last Updated',
         repo: 'fernandezvara/backd',
         // repoLabel: 'Contribute!',
-        docsRepo: 'fernandezvara/backd-docs',
+        docsRepo: 'backd-io/docs',
         docsDir: 'www',
         docsBranch: 'master',
         editLinks: true,
