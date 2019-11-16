@@ -1,4 +1,6 @@
-# auth microservice
+
+
+# auth
 
 This microservice performs all the authentication duties for the platform.
 
@@ -6,7 +8,9 @@ This microservice performs all the authentication duties for the platform.
 Before make any operation with this microservice, the platform must be [bootstrapped](./ms_admin.md#post-bootstrap).
 :::
 
-## POST /session
+## Sessions
+
+### POST /session
 
 This endpoint supports the session creation.
 
@@ -62,7 +66,7 @@ When the credentials are correct this endpoint returns the `session` information
 | 409 (Conflict)    | Error on the request. The platform is already bootstrapped.                 |
 
 
-## GET /session 
+### GET /session 
 
 Retrieves information of the current session. This information is limited to the session `id` and `expires_at`, that can be useful to ensure when to extend a session (if the configuration allows it).
 
@@ -90,7 +94,7 @@ curl -H 'X-Session-Id: sample_sample_sample_sample_sample' \
 
 If the session is valid, this endpoint returns its information:
 - `Session ID` must is used to authenticate all the API requests in every service. 
-- `Session expiration` represents the amount of seconds since January 1, 1970 on UTC time zone. If you need to display this information, remember to convert to your current time zone.
+- `Session expiration` represents the amount of seconds since January 1, 1970 on UTC time zone. To display this information, remember to convert to your current time zone.
 
 ```json
 {
@@ -104,7 +108,7 @@ If the session is valid, this endpoint returns its information:
 | 201 (Created)        | The request was successful.                                           |
 | 401 (Not Authorized) | The token is not valid or expired, so there is no session anymore.    |
 
-## DELETE /session 
+### DELETE /session 
 
 Logs out this session.
 
@@ -137,7 +141,9 @@ If the session is valid, it gets deleted.
 | 204 (No Content)     | The request was successful.        |
 | 401 (Not Authorized) | The token is not valid or expired. |
 
-## GET /me 
+## Current User
+
+### GET /me 
 
 Retrieves the information of the user identified by current session.
 

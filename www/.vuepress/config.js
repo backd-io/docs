@@ -1,11 +1,11 @@
 module.exports = {
-    title: 'backd',
+    title: 'back{d}',
     description: 'microservices backend for applications',
     plugins: [
         'code-switcher'
     ],
+    evergreen: true,
     configureWebpack: (config, isServer) => {
-        console.log(config)
         if (!isServer && config.mode === 'production') {
             const Storage = require('dom-storage')
             global.localStorage = new Storage(null, { strict: true })
@@ -15,6 +15,7 @@ module.exports = {
         lineNumbers: true
     },
     themeConfig: {
+        logo: '/img/logo.png',
         nav: [
             { text: 'Home', link: '/' },
             { text: 'Documentation', link: '/guide/' },
@@ -25,21 +26,29 @@ module.exports = {
                 {
                     title: 'Documentation',
                     collapsable: false,
-                    sidebarDepth: 2,
+                    sidebarDepth: 1,
                     children: [
                         '',
-                        'quick-start',
-                        'ms_auth',
-                        'ms_admin',
+                        'doc-quick-start'
                       ]
-                }
-            ],
-            '/installation/': [
+                },
+                {
+                    title: 'Microservices',
+                    collapsable: false,
+                    children: [
+                        'ms-auth',
+                        'ms-admin'
+                      ]
+                },
                 {
                     title: 'Platform Installation',
-                    collapsable: false
+                    collapsable: false,
+                    children: [
+                        'inst-kubernetes'
+                      ]
                 }
             ]
+
         },
         lastUpdated: 'Last Updated',
         repo: 'fernandezvara/backd',

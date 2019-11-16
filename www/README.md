@@ -1,6 +1,8 @@
 ---
 home: true
-heroText: backd
+navbar: false
+heroImage: /img/logo.png
+heroText: " "
 tagline: devops ready backend for fast app development
 actionText: Get Started →
 actionLink: /guide/

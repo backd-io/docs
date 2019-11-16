@@ -1,6 +1,6 @@
-# admin microservice
+# admin
 
-This microservice is used to administer the objects on the platform: 
+This microservice performs all administration of the objects on the platform: 
 
 - applications
     - object schemas
@@ -16,7 +16,9 @@ Because of the operations that can be done with this service probably you won't 
 This service is only used by administrators so you can opt to stop it while not required.
 :::
 
-## POST /bootstrap
+## Bootstrap
+
+### POST /bootstrap
 
 As soon as you first deploy `backd`, the microservices need to create the database tables that manage the core information of the platform. This process must start by calling the `admin` service with the requirements stated below. This task can be accomplished using the (TODO: link to backd bootstrap) _cli_ for your commodity.
 
@@ -56,3 +58,22 @@ The request contains both the information about the code for bootstrap and admin
 | 204 (No Content)  | The request and bootstrap processes were executed successfully.  |
 | 400 (Bad Request) | Error on the request. Some information provided is not correct.  |
 | 409 (Conflict)    | Error on the request. The platform is already bootstrapped.      |
+
+## Applications
+
+### POST /applications
+
+Any user that have administrative permissions over applications, can create a new one. An application is the basic definition of a whole set of:
+
+- schemas and its data
+- files
+- functions
+- schedulers
+- etc
+
+The applications does not contain user or groups, that is part of the [domains]('.')
+
+::: tip
+
+
+:::
