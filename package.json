@@ -1,10 +1,31 @@
 {
-  "devDependencies": {
-    "@vuepress/plugin-active-header-links": "^1.0.0-rc.1",
-    "vuepress-theme-craftdocs": "^1.3.6"
+  "name": "backd.io-docs",
+  "version": "1.0.0",
+  "description": "backd documentation site",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
   },
-  "dependencies": {
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/github.com/backd-io/docs.git"
+  },
+  "keywords": [
+    "back",
+    "tutorial"
+  ],
+  "author": "antoniofernandezvara+backd@gmail.com",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/github.com/backd-io/docs/issues"
+  },
+  "homepage": "https://github.com/github.com/backd-io/docs#readme",
+  "devDependencies": {
     "@textlint-rule/textlint-rule-no-unmatched-pair": "^1.0.7",
+    "@vuepress/plugin-active-header-links": "^1.0.0-rc.1",
     "textlint": "^11.5.0",
     "textlint-filter-rule-comments": "^1.2.2",
     "textlint-rule-apostrophe": "^1.0.0",
@@ -14,5 +35,9 @@
     "textlint-rule-stop-words": "^1.0.17",
     "textlint-rule-terminology": "^2.0.1",
     "textlint-rule-write-good": "^1.6.2"
+  },
+  "dependencies": {
+    "dom-storage": "^2.1.0",
+    "vuepress-plugin-code-switcher": "^1.0.2"
   }
 }

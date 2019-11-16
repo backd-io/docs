@@ -2,9 +2,15 @@ module.exports = {
     title: 'backd',
     description: 'microservices backend for applications',
     plugins: [
-        '@vuepress/active-header-links',
-        '@vuepress/last-updated'
+        'code-switcher'
     ],
+    configureWebpack: (config, isServer) => {
+        console.log(config)
+        if (!isServer && config.mode === 'production') {
+            const Storage = require('dom-storage')
+            global.localStorage = new Storage(null, { strict: true })
+        }
+    },
     markdown: {
         lineNumbers: true
     },
@@ -23,6 +29,7 @@ module.exports = {
                     children: [
                         '',
                         'quick-start',
+                        'ms_auth',
                         'ms_admin',
                       ]
                 }
