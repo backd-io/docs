@@ -1,7 +1,7 @@
 ---
 home: true
 navbar: false
-heroImage: /img/logo.png
+heroImage: /img/logo.svg
 heroText: " "
 tagline: devops ready backend for fast app development
 actionText: Get Started →

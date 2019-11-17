@@ -1,5 +1,10 @@
 # Quick Start
 
+::: danger
+still not written....
+:::
+
+
 If you already have access to a backd installation, download the `backd` cli to start.
 
 To make a full installation of the platform follow the Platform Installation guide.

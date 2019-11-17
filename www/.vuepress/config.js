@@ -15,7 +15,7 @@ module.exports = {
         lineNumbers: true
     },
     themeConfig: {
-        logo: '/img/logo.png',
+        logo: '/img/logo.svg',
         nav: [
             { text: 'Home', link: '/' },
             { text: 'Documentation', link: '/guide/' },
