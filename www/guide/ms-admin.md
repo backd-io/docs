@@ -24,7 +24,15 @@ As soon as you first deploy `backd`, the microservices need to create the databa
 
 When the service starts, it looks into the database for the required tables. If tables are missing, it will keep waiting for its initialization. 
 
-Access to the logs of the `admin` service is a requirement to start the bootstrapping process. The service writes the initialization code in a log with the message `server not bootstrapped` and the code. The log with the code looks as follows:
+Access to the logs of the `admin` service is a requirement to start the bootstrapping process. The service writes the initialization code in a log with the message `server not bootstrapped` and the code. 
+
+::: tip
+Every instance will create a new random bootstrap **code**, so it's recommended to start just one and make the process.
+
+After bootstrapping you can start as many instances as you need.
+:::
+
+The log with the code looks as follows:
 
 ```json{5}
     {
@@ -41,7 +49,7 @@ The bootstrap process will create the required tables on the database, along wit
 
 The request contains both the information about the code for bootstrap and administrator user for the first user creation. This user will become a **global administrator** of the platform. 
 
-<CodeSwitcher :languages="{json:'json',sh:'sh'}">
+<CodeSwitcher :languages="{json:'json',sh:'sh',go:'go'}">
 <template v-slot:json>
  
 ```json{2}
@@ -65,6 +73,23 @@ curl -H '{
     "email": "<email of the administrator>",
     "password": "<desired password>"
 }' https://admin.backd.io/bootstrap
+```
+ 
+</template>
+<template v-slot:go>
+ 
+```go{2}
+err := client.BootstrapCluster(
+    "<code from the log>", 
+    "<administrator name>", 
+    "<desired username, can be the same as email>", 
+    "email of the administrator>", 
+    "<desired password>")
+
+if err != nil {
+    // there was an error on the bootstrapping process
+    println(err.Error())
+}
 ```
  
 </template>
@@ -109,10 +134,10 @@ These are the fields for the `domain` object and its validation rules:
 
 **Sample:**
 
-<CodeSwitcher :languages="{json:'json',sh:'sh'}">
+<CodeSwitcher :languages="{json:'json',sh:'sh',go:'go'}">
 <template v-slot:json>
  
-```json{2}
+```json
 { 
     "_id": "<domain name>", 
     "description": "<description>",
@@ -124,7 +149,7 @@ These are the fields for the `domain` object and its validation rules:
 </template>
 <template v-slot:sh>
  
-```sh{2}
+```sh
 curl -H 'X-Session-Id: aS30Hc1n7pzsgQEatuERRAw84fr23RRdKnjQGcIIqZQ' 
 -d '{ 
     "_id": "<domain name>", 
@@ -132,6 +157,24 @@ curl -H 'X-Session-Id: aS30Hc1n7pzsgQEatuERRAw84fr23RRdKnjQGcIIqZQ'
     "type": "b",
     "session_expiration": 3600
 }' https://admin.backd.io/domains
+```
+ 
+</template>
+<template v-slot:go>
+ 
+```go
+domain := backd.Domain{
+	ID:  "<domain name>",
+	Description:"<description>",
+	Type:"b",
+	SessionExpiration: 3600
+}
+
+_, err := client.Domains().Insert(&domain)
+if err != nil {
+    // request failed, check the error
+    println(err.Error())
+}
 ```
  
 </template>
@@ -163,7 +206,7 @@ You can use [query language](.) to query domains.
 
 **Request**
 
-<CodeSwitcher :languages="{json:'json',sh:'sh'}">
+<CodeSwitcher :languages="{json:'json',sh:'sh',go:'go'}">
 <template v-slot:json>
  
 ```json
@@ -176,6 +219,28 @@ no data to send
 ```sh
 curl -H 'X-Session-Id: aS30Hc1n7pzsgQEatuERRAw84fr23RRdKnjQGcIIqZQ' 
     https://admin.backd.io/domains
+```
+ 
+</template>
+<template v-slot:go>
+ 
+```go
+var domains []backd.Domain
+
+q := QueryOptions{
+    Q: make(map[string]interface{}),
+    Sort: make(map[string]string),
+    Page: 1,
+    PerPage: 20,
+}
+
+_, err := client.Domains().GetMany(
+    q,
+    &domains)
+if err != nil {
+    // request failed, check the error
+    println(err.Error())
+}
 ```
  
 </template>
@@ -213,7 +278,7 @@ You can get information about one domain if you have permissions to `read` the o
 
 **Request**
 
-<CodeSwitcher :languages="{json:'json',sh:'sh'}">
+<CodeSwitcher :languages="{json:'json',sh:'sh',go:'go'}">
 <template v-slot:json>
  
 ```json
@@ -226,6 +291,19 @@ no data to send
 ```sh
 curl -H 'X-Session-Id: aS30Hc1n7pzsgQEatuERRAw84fr23RRdKnjQGcIIqZQ' 
     https://admin.backd.io/domains/someid
+```
+ 
+</template>
+<template v-slot:go>
+ 
+```go
+var domain backd.Domain
+
+_, err := client.Domains().GetByID("someid", &domain)
+if err != nil {
+    // request failed, check the error
+    println(err.Error())
+}
 ```
  
 </template>
@@ -254,7 +332,7 @@ Updates a domain object.
 
 **Request**
 
-<CodeSwitcher :languages="{json:'json',sh:'sh'}">
+<CodeSwitcher :languages="{json:'json',sh:'sh',go:'go'}">
 <template v-slot:json>
  
 ```json{2}
@@ -273,6 +351,26 @@ curl -X PUT -H 'X-Session-Id: aS30Hc1n7pzsgQEatuERRAw84fr23RRdKnjQGcIIqZQ'
     "type": "b",
     "session_expiration": 3600
 }' https://admin.backd.io/domains/name
+```
+ 
+</template>
+<template v-slot:go>
+ 
+```go
+var (
+    domain backd.Domain
+    updatedDomain backd.Domain
+    err error
+)
+
+domain.Description = "<description>"
+
+err = client.Domains().Update("someid", &domain, &updatedDomain)
+if err != nil {
+    // request failed, check the error
+    fmt.Println(err.Error())
+}
+fmt.Println(updatedDomain)
 ```
  
 </template>
@@ -297,9 +395,10 @@ empty response
 
 Deletes a domain object. 
 
+
 **Request**
 
-<CodeSwitcher :languages="{json:'json',sh:'sh'}">
+<CodeSwitcher :languages="{json:'json',sh:'sh',go:'go'}">
 <template v-slot:json>
  
 ```json{2}
@@ -312,6 +411,17 @@ no data to send
 ```sh{2}
 curl -X DELETE -H 'X-Session-Id: aS30Hc1n7pzsgQEatuERRAw84fr23RRdKnjQGcIIqZQ' 
     https://admin.backd.io/domain/domainid
+```
+ 
+</template>
+<template v-slot:go>
+ 
+```go
+err := client.Domains().Delete("someid")
+if err != nil {
+    // request failed, check the error
+    fmt.Println(err.Error())
+}
 ```
  
 </template>
