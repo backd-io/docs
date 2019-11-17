@@ -335,7 +335,7 @@ Updates a domain object.
 <CodeSwitcher :languages="{json:'json',sh:'sh',go:'go'}">
 <template v-slot:json>
  
-```json{2}
+```json
 { 
     "description": "<new description>" 
 }
@@ -344,7 +344,7 @@ Updates a domain object.
 </template>
 <template v-slot:sh>
  
-```sh{2}
+```sh
 curl -X PUT -H 'X-Session-Id: aS30Hc1n7pzsgQEatuERRAw84fr23RRdKnjQGcIIqZQ' 
 -d '{
     "description": "<description>",
@@ -401,14 +401,14 @@ Deletes a domain object.
 <CodeSwitcher :languages="{json:'json',sh:'sh',go:'go'}">
 <template v-slot:json>
  
-```json{2}
+```json
 no data to send
 ```
  
 </template>
 <template v-slot:sh>
  
-```sh{2}
+```sh
 curl -X DELETE -H 'X-Session-Id: aS30Hc1n7pzsgQEatuERRAw84fr23RRdKnjQGcIIqZQ' 
     https://admin.backd.io/domain/domainid
 ```
